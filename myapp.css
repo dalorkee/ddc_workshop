@@ -1,0 +1,38 @@
+.container-fluid {
+	margin: 0;
+	padding: 0;
+}
+.header {
+	width: 100%;
+	padding: 0;
+	border-bottom: 2px solid #bbbbbb;
+}
+.main-nav {
+	width: 16%;
+	padding: 40px 0 0 10px;
+	background-color: #f4f4f4;
+	min-height: calc(100vh - 136px);
+	float: left;
+}
+.content {
+	width: 84%;
+	float: left;
+	padding: 10px 20px;
+}
+.content:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.footer {
+	position: fixed;
+	height: 60px;
+	bottom: 0;
+	width: 100%;
+	background-color: #0088ff;
+}
+.footer-text {
+	display: table;
+	text-align: center;
+	margin: auto;
+}
