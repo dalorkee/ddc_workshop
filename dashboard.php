@@ -111,10 +111,19 @@
 				<div class="col-xs-12 col-sm-12 col-md-6 col-xl-6 col-lg-6">
 					<div class="card">
 						<div class="card-body">
-							<canvas id="chart_by_sex" style="width:100%;max-width:400px"></canvas>
+							<canvas id="chart_by_sex" style="width:100%;max-width:400px;"></canvas>
 						</div>
 					</div>
 				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-6 col-xl-6 col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<canvas id="top_10_506" style="width:100%;max-width:500px; height: 400px;"></canvas>
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 		</div>
@@ -136,7 +145,6 @@
 		if ($conn) {
 			$conn->set_charset("utf8");
 		}
-
 		$sql = "SELECT SEX, COUNT(*) as total_sex FROM 506main GROUP BY SEX;";
 		$result = $conn->query($sql);
 		$ds_by_sex = "";
@@ -165,5 +173,41 @@
 		}
 	});
 </script>
+
+<script>
+	<?php
+		$sql = "SELECT DISEASE, COUNT(*) AS top_10_ds FROM 506main GROUP BY DISEASE ORDER BY top_10_ds DESC LIMIT 10";
+		$result = $conn->query($sql);
+		$ds_name = "";
+		$ds_data = "";
+		while ($row = $result->fetch_assoc()) {
+			$ds_name .= "'" . $row['DISEASE'] . "',";
+			$ds_data .= "'" . $row['top_10_ds'] . "',";
+		}
+	?>
+	var xValues = [<?php echo $ds_name; ?>];
+	var yValues = [<?php echo $ds_data; ?>];
+	var barColors = ["red", "green", "blue", "orange", "brown", "salmon", "#d4ac0d", "#6c3483", "#117864", "#922b21"];
+	new Chart("top_10_506", {
+		type: "bar",
+		data: {
+			labels: xValues,
+			datasets: [{
+				backgroundColor: barColors,
+				data: yValues,
+			}]
+		},
+		options: {
+			legend: {
+				display: true,
+			},
+			title: {
+				display: true,
+				text: "10 ลำดับโรค 506 ประจำปี 2564"
+			}
+		}
+	});
+</script>
+
 </body>
 </html>
