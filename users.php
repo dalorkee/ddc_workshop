@@ -5,6 +5,7 @@ class users {
 	public $firstname;
 	public $lastname;
 	public $email;
+	public $password;
 	public $user_role;
 	public $timestamp;
 
@@ -25,15 +26,17 @@ class users {
 		$this->firstname = $row['firstname'];
 		$this->lastname = $row['lastname'];
 		$this->email = $row['email'];
+		$this->password = $row['password'];
 		$this->user_role = $row['user_role'];
 	}
 
 	public function create() {
 		$this->getTimestamp();
-		$sql = "INSERT INTO users(firstname, lastname, email, user_role, created_at) VALUES (
+		$sql = "INSERT INTO users(firstname, lastname, email, password, user_role, created_at) VALUES (
 			'" . $this->firstname . "',
 			'" . $this->lastname . "',
 			'" . $this->email . "',
+			'" . $this->password . "',
 			'" . $this->user_role . "',
 			'" . $this->timestamp . "'
 		)";
@@ -51,6 +54,7 @@ class users {
 		 						firstname = '" . $this->firstname . "',
 								lastname = '" . $this->lastname . "',
 								email = '" . $this->email . "',
+								password = '" . $this->password . "',
 								user_role = '" .$this->user_role ."'
 								WHERE id = '" . $this->id . "'";
 		if ($this->conn->query($sql)) {

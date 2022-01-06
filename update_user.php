@@ -124,6 +124,7 @@
 					$user->firstname = $_POST['firstname'];
 					$user->lastname = $_POST['lastname'];
 					$user->email = $_POST['email'];
+					$user->password = $_POST['password'];
 					$user->user_role = $_POST['user_role'];
 					
 					if ($user->update()) {
@@ -147,6 +148,10 @@
 					<tr>
 						<td>อีเมล์</td>
 						<td><input type="email" name="email" value="<?php echo $user->email; ?>" class="form-control" require></td>
+					</tr>
+					<tr>
+						<td>รหัสผ่าน</td>
+						<td><input type="text" name="password" value="<?php echo $user->password; ?>" class="form-control" require></td>
 					</tr>
 					<tr>
 						<td>บทบาทผู้ใช้</td>

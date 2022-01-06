@@ -120,6 +120,7 @@
 					$user->firstname = $_POST['firstname'];
 					$user->lastname = $_POST['lastname'];
 					$user->email = $_POST['email'];
+					$user->password = $_POST['password'];
 					$user->user_role = $_POST['user_role'];
 					
 					if ($user->create()) {
@@ -143,6 +144,10 @@
 					<tr>
 						<td>อีเมล์</td>
 						<td><input type="email" name="email" class="form-control" require></td>
+					</tr>
+					<tr>
+						<td>รหัสผ่าน</td>
+						<td><input type="password" name="password" class="form-control" require></td>
 					</tr>
 					<tr>
 						<td>บทบาทผู้ใช้</td>

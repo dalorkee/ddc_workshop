@@ -134,6 +134,7 @@
 						<th>ชื่อ</th>
 						<th>นามสกุล</th>
 						<th>อีเมล์</th>
+						<th>รหัสผ่าน</th>
 						<th>บทบาท</th>
 						<th>จัดการ</th>
 					</tr>
@@ -146,6 +147,7 @@
 							echo "<td>" . $firstname ."</td>";
 							echo "<td>" . $lastname ."</td>";
 							echo "<td>" . $email ."</td>";
+							echo "<td>" . $password . "</td>";
 							echo "<td>" . $user_role ."</td>";
 							echo "<td>";
 								echo "<a href='update_user.php?id={$id}'>แก้ไข</a> / ";
