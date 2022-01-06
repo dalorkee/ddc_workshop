@@ -21,7 +21,7 @@ class users {
 	public function readOne() {
 		$sql = "SELECT * FROM users WHERE id = " . $this->id;
 		$result = $this->conn->query($sql);
-		$row = $result->fecth_array();
+		$row = $result->fetch_array();
 		$this->firstname = $row['firstname'];
 		$this->lastname = $row['lastname'];
 		$this->email = $row['email'];
@@ -51,9 +51,8 @@ class users {
 		 						firstname = '" . $this->firstname . "',
 								lastname = '" . $this->lastname . "',
 								email = '" . $this->email . "',
-								user_role = '" .$this->user_role ."',
+								user_role = '" .$this->user_role ."'
 								WHERE id = '" . $this->id . "'";
-		
 		if ($this->conn->query($sql)) {
 			return true;
 		} else {

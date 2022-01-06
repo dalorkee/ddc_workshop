@@ -108,6 +108,8 @@
 		<!-- contents -->
 		<div class="content">
 			<?php
+				$id = isset($_GET['id']) ? $_GET['id'] : die('Error: ไม่พบข้อมูล ID');
+
 				include_once 'config_database.php';
 				include_once 'users.php';
 				
@@ -115,39 +117,43 @@
 				$database = new database();
 				$db = $database->getConnection();
 
+				$user = new users($db);
+				$user->id = $id;
+				$user->readOne();
+
 				if ($_POST) {
-					$user = new users($db);
 					$user->firstname = $_POST['firstname'];
 					$user->lastname = $_POST['lastname'];
 					$user->email = $_POST['email'];
 					$user->user_role = $_POST['user_role'];
 					
-					if ($user->create()) {
-						$_SESSION['msg'] = 'สร้างผู้ใช้ใหม่ สำเร็จแล้ว';
+					if ($user->update()) {
+						$_SESSION['msg'] = 'แก้ไขข้อมูล สำเร็จแล้ว';
 					} else {
-						$_SESSION['msg'] = 'ไม่สามารถสร้างผู้ใช้ได้';
+						$_SESSION['msg'] = 'ไม่สามารถแก้ไขข้อมูลได้';
 					}
 					header('Location: manage_user.php');
 				}
 			?>
-			<form action="create_user.php" method="POST">
+			<form action="update_user.php?id=<?php echo $id; ?>" method="POST">
 				<table class="table table-striped">
 					<tr>
 						<td>ชื่อ</td>
-						<td><input type="text" name="firstname" class="form-control" require></td>
+						<td><input type="text" name="firstname" value="<?php echo $user->firstname; ?>" class="form-control" require></td>
 					</tr>
 					<tr>
 						<td>นามสกุล</td>
-						<td><input type="text" name="lastname" class="form-control" require></td>
+						<td><input type="text" name="lastname" value="<?php echo $user->lastname; ?>" class="form-control" require></td>
 					</tr>
 					<tr>
 						<td>อีเมล์</td>
-						<td><input type="email" name="email" class="form-control" require></td>
+						<td><input type="email" name="email" value="<?php echo $user->email; ?>" class="form-control" require></td>
 					</tr>
 					<tr>
 						<td>บทบาทผู้ใช้</td>
 						<td>
 							<select name="user_role" class="form-control">
+								<option value="<?php echo $user->user_role; ?>"><?php echo $user->user_role; ?></option>
 								<option value="">-- โปรดเลือก --</option>
 								<option value="admin">Admin</option>
 								<option value="user">User</option>
