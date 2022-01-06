@@ -107,7 +107,16 @@
 
 		<!-- contents -->
 		<div class="content">
-			Dashboard here!
+			<div class="row mb-4">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-xl-6 col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<canvas id="chart_by_sex" style="width:100%;max-width:400px"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 		<!-- footer -->
@@ -120,6 +129,41 @@
 	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script>
+	<?php
+		$conn = new mysqli('localhost', 'root', 'megabyte', 'workshop');
+		if ($conn) {
+			$conn->set_charset("utf8");
+		}
+
+		$sql = "SELECT SEX, COUNT(*) as total_sex FROM 506main GROUP BY SEX;";
+		$result = $conn->query($sql);
+		$ds_by_sex = "";
+		while ($row = $result->fetch_assoc()) {
+			$ds_by_sex .= "'" . $row['total_sex'] . "',";
+		}
+	?>
+	var xValues = ["ชาย", "หญิง"];
+	var yValues = [<?php echo $ds_by_sex; ?>];
+	var barColors = ["#b91d47", "#5b2c6f"];
+
+	new Chart("chart_by_sex", {
+		type: "doughnut",
+		data: {
+			labels: xValues,
+			datasets: [{
+				backgroundColor: barColors,
+				data: yValues
+			}]
+		},
+		options: {
+			title: {
+				display: true,
+				text: "ข้อมูล 506 แบ่งประเภทตามเพศ"
+			},
+		}
+	});
+</script>
 </body>
 </html>
