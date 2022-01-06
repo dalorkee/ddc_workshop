@@ -123,9 +123,7 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 
 		<!-- footer -->
@@ -208,6 +206,5 @@
 		}
 	});
 </script>
-
 </body>
 </html>
