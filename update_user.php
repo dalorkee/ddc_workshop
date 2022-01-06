@@ -109,7 +109,6 @@
 		<div class="content">
 			<?php
 				$id = isset($_GET['id']) ? $_GET['id'] : die('Error: ไม่พบข้อมูล ID');
-
 				include_once 'config_database.php';
 				include_once 'users.php';
 				

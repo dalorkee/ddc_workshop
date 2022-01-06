@@ -60,7 +60,7 @@ class users {
 		}
 	}
 
-	public function deledte() {
+	public function delete() {
 		$sql = "DELETE FROM users WHERE id = '" . $this->id . "'";
 		if ($this->conn->query($sql)) {
 			return true;
